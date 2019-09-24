@@ -19,7 +19,7 @@ class tanhLayer
 
   void Forward(arma::cube& input, arma::cube& output)
   {
-    output = tanh(input)//(arma::exp(input)-arma::exp(input*-1))/(arma::exp(input)+arma::exp(input*-1));
+    output = tanh(input);//(arma::exp(input)-arma::exp(input*-1))/(arma::exp(input)+arma::exp(input*-1));
     this->input = input;
     this->output = output;
   }
@@ -27,7 +27,7 @@ class tanhLayer
   void Backward(arma::cube upstreamGradient)
   {
     gradientWrtInput = input;
-    gradientWrtInput.transform( [](double val) {return (1- pow(tanh(val),2))};
+    gradientWrtInput.transform( [](double val) {return (1- pow(tanh(val),2));});
     gradientWrtInput = gradientWrtInput % upstreamGradient;
   }
 
