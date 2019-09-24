@@ -63,7 +63,7 @@ int main(int argc, char ** argv)
       6);
   // Output is 24 x 24 x 6
 
-  ReLULayer r1(
+  tanhLayer r1(
       24,
       24,
       6);
@@ -90,7 +90,7 @@ int main(int argc, char ** argv)
       16);
   // Output is 8 x 8 x 16
 
-  ReLULayer r2(
+  tanhLayer r2(
       8,
       8,
       16);
