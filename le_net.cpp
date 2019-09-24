@@ -3,6 +3,7 @@
 #include "layers/relu_layer.hpp"
 #include "layers/dense_layer.hpp"
 #include "layers/softmax_layer.hpp"
+#include "layers/tanh_layer.hpp"
 #include "layers/cross_entropy_loss_layer.hpp"
 #include "utils/mnist.hpp"
 
@@ -62,7 +63,7 @@ int main(int argc, char ** argv)
       6);
   // Output is 24 x 24 x 6
 
-  ReLULayer r1(
+  tanhLayer r1(
       24,
       24,
       6);
@@ -89,7 +90,7 @@ int main(int argc, char ** argv)
       16);
   // Output is 8 x 8 x 16
 
-  ReLULayer r2(
+  tanhcdLayer r2(
       8,
       8,
       16);
