@@ -9,10 +9,10 @@
 #define DEBUG false
 #define DEBUG_PREFIX "[DEBUG DENSE LAYER ]\t"
 
-class DenseLayer
+class fcLayer
 {
  public:
-  DenseLayer(//size_t inputHeight,
+  fcLayer(//size_t inputHeight,
              size_t inputsize,
              //size_t inputDepth,
              size_t numOutputs) :

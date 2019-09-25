@@ -4,6 +4,7 @@
 #include "layers/dense_layer.hpp"
 #include "layers/softmax_layer.hpp"
 #include "layers/tanh_layer.hpp"
+#include "layers/fc_layer.hpp"
 #include "layers/cross_entropy_loss_layer.hpp"
 #include "utils/mnist.hpp"
 
