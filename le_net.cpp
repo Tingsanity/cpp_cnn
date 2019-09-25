@@ -114,6 +114,10 @@ int main(int argc, char ** argv)
       10);
   // Output is a vector of size 10
 
+  fcLayer f(
+      10,
+      10);
+
   SoftmaxLayer s(10);
   // Output is a vector of size 10
 
@@ -128,6 +132,7 @@ int main(int argc, char ** argv)
   arma::cube r2Out = arma::zeros(8, 8, 16);
   arma::cube mp2Out = arma::zeros(4, 4, 16);
   arma::vec dOut = arma::zeros(10);
+  arma::vec fOut = arma::zeros(10);
   arma::vec sOut = arma::zeros(10);
 
   // Initialize loss and cumulative loss. Cumulative loss totals loss over all
@@ -158,7 +163,8 @@ int main(int argc, char ** argv)
         r2.Forward(c2Out, r2Out);
         mp2.Forward(r2Out, mp2Out);
         d.Forward(mp2Out, dOut);
-        dOut /= 100;
+        f.Forward(dOut,fOut);
+        fOut /= 100;
         s.Forward(dOut, sOut);
 
         // Compute the loss
@@ -171,7 +177,9 @@ int main(int argc, char ** argv)
             l.getGradientWrtPredictedDistribution();
         s.Backward(gradWrtPredictedDistribution);
         arma::vec gradWrtSIn = s.getGradientWrtInput();
-        d.Backward(gradWrtSIn);
+        f.Backward(gradWrtSIn);
+        arma::vec gradWrtFIn = f.getGradientWrtInput();
+        d.Backward(gradWrtFIn);
         arma::cube gradWrtDIn = d.getGradientWrtInput();
         mp2.Backward(gradWrtDIn);
         arma::cube gradWrtMP2In = mp2.getGradientWrtInput();
