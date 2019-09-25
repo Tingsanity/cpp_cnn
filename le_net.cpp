@@ -165,7 +165,7 @@ int main(int argc, char ** argv)
         d.Forward(mp2Out, dOut);
         f.Forward(dOut,fOut);
         fOut /= 100;
-        s.Forward(dOut, sOut);
+        s.Forward(fOut, sOut);
 
         // Compute the loss
         loss = l.Forward(sOut, trainLabels[batch[i]]);
@@ -220,8 +220,9 @@ int main(int argc, char ** argv)
       r2.Forward(c2Out, r2Out);
       mp2.Forward(r2Out, mp2Out);
       d.Forward(mp2Out, dOut);
-      dOut /= 100;
-      s.Forward(dOut, sOut);
+      f.Forward(dOut,fOut);
+      fOut /= 100;
+      s.Forward(fOut, sOut);
 
       if (trainLabels[i].index_max() == sOut.index_max())
         correct += 1.0;
@@ -246,8 +247,9 @@ int main(int argc, char ** argv)
       r2.Forward(c2Out, r2Out);
       mp2.Forward(r2Out, mp2Out);
       d.Forward(mp2Out, dOut);
-      dOut /= 100;
-      s.Forward(dOut, sOut);
+      f.Forward(dOut,fOut);
+      fOut /= 100;
+      s.Forward(fOut, sOut);
 
       cumLoss += l.Forward(sOut, validationLabels[i]);
 
@@ -285,8 +287,9 @@ int main(int argc, char ** argv)
       r2.Forward(c2Out, r2Out);
       mp2.Forward(r2Out, mp2Out);
       d.Forward(mp2Out, dOut);
-      dOut /= 100;
-      s.Forward(dOut, sOut);
+      f.Forward(dOut,fOut);
+      fOut /= 100;
+      s.Forward(fOut, sOut);
 
       fout << std::to_string(i+1) << ","
           << std::to_string(sOut.index_max()) << std::endl;
