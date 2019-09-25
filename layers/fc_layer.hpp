@@ -12,17 +12,17 @@
 class DenseLayer
 {
  public:
-  DenseLayer(size_t inputHeight,
-             size_t inputWidth,
+  DenseLayer(//size_t inputHeight,
+             size_t inputsize,
              //size_t inputDepth,
              size_t numOutputs) :
-      inputHeight(inputHeight),
-      inputWidth(inputWidth),
+      //inputHeight(inputHeight),
+      inputsize(inputsize),
       //inputDepth(inputDepth),
       numOutputs(numOutputs)
   {
     // Initialize the weights.
-    weights = arma::zeros(numOutputs, inputHeight*inputWidth);
+    weights = arma::zeros(numOutputs, inputsize);
     weights.imbue( [&]() { return _getTruncNormalVal(0.0, 1.0); } );
 
     // Initialize the biases
@@ -32,10 +32,10 @@ class DenseLayer
     _resetAccumulatedGradients();
   }
 
-  void Forward(arma::cube& input, arma::vec& output)
+  void Forward(arma::vec& input, arma::vec& output)
   {
-    arma::vec flatInput = arma::vectorise(input);
-    output = (weights * flatInput) + biases;
+    //arma::vec flatInput = arma::vectorise(input);
+    output = (weights * input) + biases;
 
     this->input = input;
     this->output = output;
@@ -84,8 +84,8 @@ class DenseLayer
   void setBiases(arma::vec biases) { this->biases = biases; }
 
  private:
-  size_t inputHeight;
-  size_t inputWidth;
+  //size_t inputHeight;
+  size_t inputsize;
   //size_t inputDepth;
   arma::vec input;
 
