@@ -43,18 +43,18 @@ class DenseLayer
 
   void Backward(arma::vec& upstreamGradient)
   {
-    arma::vec gradInputVec = arma::zeros(inputHeight*inputWidth*inputDepth);
-    for (size_t i=0; i<(inputHeight*inputWidth*inputDepth); i++)
+    arma::vec gradInputVec = arma::zeros(inputsize);
+    for (size_t i=0; i<(inputsize); i++)
       gradInputVec[i] = arma::dot(weights.col(i), upstreamGradient);
-    arma::cube tmp((inputHeight*inputWidth*inputDepth), 1, 1);
-    tmp.slice(0).col(0) = gradInputVec;
-    gradInput = arma::reshape(tmp, inputHeight, inputWidth, inputDepth);
-
+    //arma::cube tmp((inputHeight*inputWidth*inputDepth), 1, 1);
+    //tmp.slice(0).col(0) = gradInputVec;
+    //gradInput = arma::reshape(tmp, inputHeight, inputWidth, inputDepth);
+    gradInput = gradInputVec;
     accumulatedGradInput += gradInput;
 
     gradWeights = arma::zeros(arma::size(weights));
     for (size_t i=0; i<gradWeights.n_rows; i++)
-      gradWeights.row(i) = vectorise(input).t() * upstreamGradient[i];
+      gradWeights.row(i) = input.t() * upstreamGradient[i];
 
     accumulatedGradWeights += gradWeights;
 
@@ -71,7 +71,7 @@ class DenseLayer
 
   arma::mat getGradientWrtWeights() { return gradWeights; }
 
-  arma::cube getGradientWrtInput() { return gradInput; }
+  arma::vec getGradientWrtInput() { return gradInput; }
 
   arma::vec getGradientWrtBiases() { return gradBiases; }
 
@@ -95,11 +95,11 @@ class DenseLayer
   arma::mat weights;
   arma::vec biases;
 
-  arma::cube gradInput;
+  arma::vec gradInput;
   arma::mat gradWeights;
   arma::vec gradBiases;
 
-  arma::cube accumulatedGradInput;
+  arma::vec accumulatedGradInput;
   arma::mat accumulatedGradWeights;
   arma::vec accumulatedGradBiases;
 
@@ -114,10 +114,10 @@ class DenseLayer
 
   void _resetAccumulatedGradients()
   {
-    accumulatedGradInput = arma::zeros(inputHeight, inputWidth, inputDepth);
+    accumulatedGradInput = arma::zeros(inputsize);
     accumulatedGradWeights = arma::zeros(
         numOutputs,
-        inputHeight*inputWidth*inputDepth
+        inputsize
         );
     accumulatedGradBiases = arma::zeros(numOutputs);
   }
