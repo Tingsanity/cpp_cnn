@@ -64,7 +64,7 @@ int main(int argc, char ** argv)
       6);
   // Output is 24 x 24 x 6
 
-  tanhLayer r1(
+  ReLULayer r1(
       24,
       24,
       6);
@@ -91,7 +91,7 @@ int main(int argc, char ** argv)
       16);
   // Output is 8 x 8 x 16
 
-  tanhLayer r2(
+  ReLULayer r2(
       8,
       8,
       16);
@@ -196,6 +196,7 @@ int main(int argc, char ** argv)
       }
 
       // Update params
+      f.UpdateWeightsAndBiases(BATCH_SIZE, LEARNING_RATE);
       d.UpdateWeightsAndBiases(BATCH_SIZE, LEARNING_RATE);
       c1.UpdateFilterWeights(BATCH_SIZE, LEARNING_RATE);
       c2.UpdateFilterWeights(BATCH_SIZE, LEARNING_RATE);
