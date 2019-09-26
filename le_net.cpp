@@ -47,7 +47,7 @@ int main(int argc, char ** argv)
   const size_t TRAIN_DATA_SIZE = trainData.size();
   const size_t VALIDATION_DATA_SIZE = validationData.size();
   const size_t TEST_DATA_SIZE = testData.size();
-  const double LEARNING_RATE = 0.05;
+  const double LEARNING_RATE = 0.002;
   const size_t EPOCHS = 10;
   const size_t BATCH_SIZE = 10;
   const size_t NUM_BATCHES = TRAIN_DATA_SIZE / BATCH_SIZE;
@@ -111,11 +111,11 @@ int main(int argc, char ** argv)
       4,
       4,
       16,
-      10);
+      20);
   // Output is a vector of size 10
 
   fcLayer f(
-      10,
+      20,
       10);
 
   SoftmaxLayer s(10);
@@ -134,6 +134,7 @@ int main(int argc, char ** argv)
   arma::vec dOut = arma::zeros(10);
   arma::vec fOut = arma::zeros(10);
   arma::vec sOut = arma::zeros(10);
+  //std::cout<<trainLabels[0].n_elem;
 
   // Initialize loss and cumulative loss. Cumulative loss totals loss over all
   // training examples in a minibatch.
